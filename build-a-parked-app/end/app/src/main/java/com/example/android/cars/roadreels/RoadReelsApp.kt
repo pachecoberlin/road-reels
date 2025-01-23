@@ -16,6 +16,8 @@
 
 package com.example.android.cars.roadreels
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -37,9 +39,11 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -49,7 +53,8 @@ import com.example.android.cars.roadreels.ui.screen.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoadReelsApp(
-    windowSizeClass: WindowSizeClass
+    windowSizeClass: WindowSizeClass,
+    intent: Intent
 ) {
     val navController = rememberNavController()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
@@ -57,6 +62,13 @@ fun RoadReelsApp(
     val currentBackStackEntryState = navController.currentBackStackEntryAsState()
     val currentBackStackEntry = currentBackStackEntryState.value
     val route = currentBackStackEntry?.destination?.route
+
+    val detail = intent.getBooleanExtra("detail",false)
+    if (detail)
+        LaunchedEffect(Screen.Player.name) {
+            navController.navigate(Screen.Player.name)
+
+        }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

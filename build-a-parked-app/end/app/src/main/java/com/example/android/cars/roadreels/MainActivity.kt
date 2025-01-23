@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 LocalControllableInsets provides controllableInsetsTypeMask
             ) {
                 RoadReelsTheme {
-                    RoadReelsApp(calculateWindowSizeClass(this))
+                    RoadReelsApp(calculateWindowSizeClass(this),intent)
                 }
             }
         }
